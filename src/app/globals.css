@@ -10,6 +10,10 @@
   --border: #e3e8ee;
   --radius: 14px;
   --shadow: 0 10px 30px rgba(16, 35, 61, 0.08);
+  --wa-dark: #075e54;
+  --wa-green: #25d366;
+  --wa-wallpaper: #e7ddd3;
+  --wa-bubble-out: #d9fdd3;
   color-scheme: light;
 }
 
@@ -135,8 +139,30 @@ a {
   background: radial-gradient(circle at 15% 20%, rgba(13, 148, 136, 0.1), transparent 45%),
     radial-gradient(circle at 85% 0%, rgba(16, 35, 61, 0.08), transparent 45%);
 }
+.heroGrid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 48px;
+  align-items: center;
+}
+@media (max-width: 900px) {
+  .heroGrid {
+    grid-template-columns: 1fr;
+  }
+}
 .heroInner {
-  max-width: 760px;
+  max-width: 640px;
+}
+.heroPhone {
+  justify-self: end;
+}
+.heroPhone .waWindow {
+  max-width: 300px;
+}
+@media (max-width: 900px) {
+  .heroPhone {
+    justify-self: center;
+  }
 }
 .eyebrow {
   display: inline-block;
@@ -180,6 +206,33 @@ a {
   max-width: 620px;
   margin-top: -4px;
   margin-bottom: 36px;
+}
+
+/* EXAMPLES */
+.examples {
+  padding: 72px 0;
+  background: var(--bg-alt);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.examplesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+  align-items: start;
+}
+.exampleCard {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.exampleCard h3 {
+  font-size: 1.02rem;
+  color: var(--navy);
+}
+.exampleCard .waWindow {
+  max-width: none;
 }
 
 /* PROBLEM */
@@ -390,17 +443,37 @@ a {
   margin: 0;
 }
 
-/* PRICING (single plan) */
+/* PRICING */
 .pricing {
   padding: 80px 0;
 }
+.pricingGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  max-width: 760px;
+}
 .priceCard {
-  max-width: 420px;
+  position: relative;
   background: var(--bg-alt);
-  border: 1px solid var(--teal);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 34px 30px;
+}
+.priceCardFeatured {
+  border-color: var(--teal);
   box-shadow: var(--shadow);
+}
+.priceBadge {
+  position: absolute;
+  top: -12px;
+  right: 24px;
+  background: var(--teal);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 999px;
 }
 .priceCard h3 {
   color: var(--navy);
@@ -567,12 +640,12 @@ a {
   width: 58px;
   height: 58px;
   border-radius: 50%;
-  background: var(--teal);
+  background: var(--wa-green);
   color: #fff;
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-  box-shadow: 0 10px 24px rgba(13, 148, 136, 0.4);
+  box-shadow: 0 10px 24px rgba(37, 211, 102, 0.45);
 }
 .chatPanel {
   position: absolute;
@@ -589,7 +662,7 @@ a {
   border: 1px solid var(--border);
 }
 .chatHeader {
-  background: var(--navy);
+  background: var(--wa-dark);
   color: #fff;
   padding: 14px 16px;
   display: flex;
@@ -602,7 +675,7 @@ a {
 }
 .chatStatus {
   font-size: 0.72rem;
-  color: var(--teal-light);
+  color: rgba(255, 255, 255, 0.75);
 }
 .chatClose {
   background: transparent;
@@ -619,7 +692,7 @@ a {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  background: var(--bg);
+  background: var(--wa-wallpaper);
   min-height: 260px;
 }
 .chatBubble {
@@ -633,20 +706,21 @@ a {
 .chatBubbleBot {
   align-self: flex-start;
   background: #fff;
-  border: 1px solid var(--border);
   border-bottom-left-radius: 4px;
   color: var(--text);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
 }
 .chatBubbleUser {
   align-self: flex-end;
-  background: var(--teal);
-  color: #fff;
+  background: var(--wa-bubble-out);
+  color: var(--text);
   border-bottom-right-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
 }
 .chatBubbleSystem {
   align-self: center;
-  background: rgba(13, 148, 136, 0.1);
-  color: var(--teal);
+  background: rgba(7, 94, 84, 0.1);
+  color: var(--wa-dark);
   font-size: 0.76rem;
   font-weight: 600;
   border-radius: 999px;
@@ -657,11 +731,11 @@ a {
   flex-wrap: wrap;
   gap: 8px;
   padding: 0 16px 12px;
-  background: var(--bg);
+  background: var(--wa-wallpaper);
 }
 .chatQuickReply {
-  border: 1px solid var(--teal);
-  color: var(--teal);
+  border: 1px solid var(--wa-dark);
+  color: var(--wa-dark);
   background: #fff;
   border-radius: 999px;
   padding: 7px 13px;
@@ -670,7 +744,7 @@ a {
   cursor: pointer;
 }
 .chatQuickReply:hover {
-  background: var(--teal);
+  background: var(--wa-dark);
   color: #fff;
 }
 .chatFooter {
@@ -687,5 +761,76 @@ a {
   padding: 0;
 }
 .chatRestart:hover {
-  color: var(--teal);
+  color: var(--wa-dark);
+}
+
+/* WHATSAPP MOCK (static examples + hero preview) */
+.waWindow {
+  width: 100%;
+  max-width: 340px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+.waHeader {
+  background: var(--wa-dark);
+  color: #fff;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.waAvatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.waHeader strong {
+  display: block;
+  font-size: 0.88rem;
+}
+.waHeader span {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+.waBody {
+  background: var(--wa-wallpaper);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.waBubble {
+  max-width: 84%;
+  padding: 7px 10px 6px;
+  border-radius: 9px;
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+.waBubbleIn {
+  align-self: flex-start;
+  background: #fff;
+  border-bottom-left-radius: 2px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+}
+.waBubbleOut {
+  align-self: flex-end;
+  background: var(--wa-bubble-out);
+  border-bottom-right-radius: 2px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+}
+.waBubble time {
+  display: block;
+  font-size: 0.62rem;
+  color: rgba(0, 0, 0, 0.42);
+  text-align: right;
+  margin-top: 2px;
 }

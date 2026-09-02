@@ -51,10 +51,15 @@ estética, centros de fisio/nutrición) como vertical de entrada porque:
 La primera versión del sitio ofrecía 3 servicios en escalera (agente → CRM →
 integración de procesos) con 3 planes de precio. Para la fase de validación eso
 es ruido: nadie sabe si te contrata para "un chatbot" o para "optimizar
-procesos". El sitio ahora vende **una sola cosa**: el agente de WhatsApp para
-gestionar citas, con un único precio. La sincronización con CRM y la
-integración de sistemas se convierten en upsell natural más adelante, una vez
-haya 3-5 clientes reales y esté claro qué piden de verdad.
+procesos". El sitio vende **una sola cosa**: el agente de WhatsApp para
+gestionar citas. La integración de sistemas más compleja se queda fuera de la
+oferta por ahora, como upsell futuro una vez haya clientes reales.
+
+Sí se ofrecen **2 planes** (Starter y Growth) en vez de 1: Starter es solo el
+agente, Growth añade la sincronización con el CRM/agenda del cliente. Es la
+escalera original acotada a sus dos primeros peldaños — lo justo para que un
+cliente que ya usa un CRM no sienta que le falta algo, sin llegar a vender un
+catálogo completo de servicios de IA.
 
 ## Por qué Next.js y no HTML/CSS/JS plano
 
@@ -76,24 +81,31 @@ src/app/icon.tsx            favicon generado por código (marca "K.")
 src/app/apple-icon.tsx       icono para pantalla de inicio de iOS
 src/app/opengraph-image.tsx  imagen de la tarjeta al compartir el enlace (WhatsApp, email, redes)
 src/app/robots.ts / sitemap.ts   SEO básico
+src/components/WhatsAppMock.tsx   mockup visual de una conversación de WhatsApp (hero + ejemplos)
 src/components/DemoSection.tsx   contenedor con estado compartido chat ↔ CRM
-src/components/ChatDemo.tsx      widget de chat con árbol de conversación guionizado
+src/components/ChatDemo.tsx      widget de chat con árbol de conversación guionizado, con la misma estética de WhatsApp
 src/components/ContactForm.tsx   formulario conectado a FormSubmit (envío por email)
 ```
 
 ## Qué contiene el sitio
 
-- Hero con propuesta de valor y llamada a la acción.
+- Hero con propuesta de valor, llamada a la acción y un mockup de WhatsApp real
+  (misma estética que usa toda la web: cabecera verde oscuro, burbujas y fondo
+  de WhatsApp auténticos, para que se reconozca al instante).
 - Sección de dolor/problema (sin estadísticas inventadas presentadas como dato real).
 - Un único servicio: Agente de Atención 24/7.
-- **Demo interactiva de chatbot**: widget de chat funcional (sin backend) que
-  simula a un paciente agendando una cita en una clínica dental ficticia.
+- **"Así responde en el día a día"**: 3 mockups estáticos de conversaciones de
+  WhatsApp reales (agendar fuera de horario, responder al instante, recordatorio
+  automático) — ejemplos concretos antes de pedirle al visitante que pruebe la demo.
+- **Demo interactiva de chatbot**: widget de chat funcional (sin backend, mismo
+  estilo WhatsApp que los ejemplos) que simula a un paciente agendando una cita
+  en una clínica dental ficticia.
 - **Mock de CRM**: tablero tipo kanban que se sincroniza en vivo con la demo del
   chat (el lead se mueve solo de "Nuevo lead" → "Atendido por IA" → "Cita
   agendada").
 - Proceso de trabajo en 4 pasos.
-- Precio único, orientativo (marcado explícitamente como ejemplo, a ajustar con
-  investigación de mercado real).
+- 2 planes (Starter / Growth), orientativos (marcados explícitamente como
+  ejemplo, a ajustar con investigación de mercado real).
 - Caso de ejemplo **claramente etiquetado como ilustrativo/ficticio** — no es un
   testimonio real, para no inducir a error a nadie que visite el sitio.
 - Formulario de contacto conectado a **FormSubmit** (envía a cmassoweb@gmail.com
