@@ -243,7 +243,11 @@
     <div class="container contact__inner">
       <h2 class="section-title">Hablemos de tu clínica</h2>
       <p class="section-sub">Cuéntanos brevemente tu caso y te contactamos para el diagnóstico gratuito de 30 minutos.</p>
-      <form class="contact__form" id="contact-form">
+      <form class="contact__form" id="contact-form" action="https://formsubmit.co/cmassoweb@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="Nuevo contacto desde la web de Kairo">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
         <div class="form__row">
           <label>
             Nombre
@@ -263,7 +267,7 @@
           <textarea name="message" rows="4" placeholder="Ej: recibimos muchos mensajes por WhatsApp fuera de horario y perdemos pacientes..."></textarea>
         </label>
         <button type="submit" class="btn btn--primary">Enviar</button>
-        <p class="contact__note" id="contact-note">Este formulario es una maqueta de demostración: aún no está conectado a un email ni CRM real.</p>
+        <p class="contact__note" id="contact-note">Al enviar, el mensaje llega directamente a nuestro email.</p>
       </form>
     </div>
   </section>

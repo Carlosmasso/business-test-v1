@@ -10,15 +10,34 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
   });
 });
 
-// ---------- Contact form (demo stub, no backend) ----------
+// ---------- Contact form (sends via FormSubmit, no backend needed) ----------
 const contactForm = document.getElementById('contact-form');
 const contactNote = document.getElementById('contact-note');
 if (contactForm) {
-  contactForm.addEventListener('submit', (e) => {
+  contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    contactNote.textContent = '¡Gracias! (Demo: aquí se enviaría tu mensaje a un email o CRM real.)';
-    contactNote.style.color = '#0d9488';
-    contactForm.reset();
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    contactNote.textContent = 'Enviando...';
+    contactNote.style.color = '';
+
+    try {
+      const ajaxEndpoint = contactForm.action.replace('formsubmit.co/', 'formsubmit.co/ajax/');
+      const response = await fetch(ajaxEndpoint, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(contactForm),
+      });
+      if (!response.ok) throw new Error('Request failed');
+      contactNote.textContent = '¡Gracias! Hemos recibido tu mensaje, te contactamos pronto.';
+      contactNote.style.color = '#0d9488';
+      contactForm.reset();
+    } catch (err) {
+      contactNote.textContent = 'No se pudo enviar. Escríbenos directamente o inténtalo de nuevo.';
+      contactNote.style.color = '#c0392b';
+    } finally {
+      submitBtn.disabled = false;
+    }
   });
 }
 
