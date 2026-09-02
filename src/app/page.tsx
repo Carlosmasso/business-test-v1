@@ -4,22 +4,18 @@ import WhatsAppMock from "@/components/WhatsAppMock";
 
 const PROBLEMS = [
   {
-    icon: "📵",
     title: "Llamadas fuera de horario",
     text: "Un paciente escribe a las 21:00 preguntando precios y disponibilidad. Nadie responde hasta el día siguiente — y para entonces ya escribió a otra clínica.",
   },
   {
-    icon: "🗒️",
     title: "Recepción saturada",
     text: "El mismo horario, la misma dirección, el mismo \"¿hacéis limpiezas dentales?\" repetido decenas de veces al día, quitando tiempo a tareas que sí requieren a una persona.",
   },
   {
-    icon: "🔁",
     title: "Datos duplicados a mano",
     text: "Cada cita agendada por WhatsApp hay que volver a escribirla en la agenda y, si hay suerte, también en el CRM. Se pierden datos y se pierde tiempo.",
   },
   {
-    icon: "👻",
     title: "Citas sin confirmar",
     text: "Sin recordatorio automático, un porcentaje de pacientes simplemente no aparece — y ese hueco en la agenda ya no se recupera.",
   },
@@ -120,7 +116,6 @@ export default function Home() {
           <div className="problemGrid">
             {PROBLEMS.map((p) => (
               <div key={p.title} className="problemCard">
-                <span className="problemIcon">{p.icon}</span>
                 <h3>{p.title}</h3>
                 <p>{p.text}</p>
               </div>
@@ -205,7 +200,7 @@ export default function Home() {
                 Pedir diagnóstico gratuito
               </a>
             </div>
-            <div className="priceCard priceCardFeatured">
+            <div className="priceCard">
               <span className="priceBadge">Más elegido</span>
               <h3>Growth</h3>
               <p className="priceValue">

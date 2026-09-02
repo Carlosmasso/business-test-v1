@@ -18,7 +18,7 @@ export default function DemoSection() {
             Esta es una demo funcional de cómo un paciente agendaría una cita hablando con el agente
             de una clínica dental ficticia. Haz clic en las opciones para avanzar la conversación.
           </p>
-          <div className="demoHint">👉 Abre el chat de la esquina inferior derecha</div>
+          <div className="demoHint">Abre el chat de la esquina inferior derecha →</div>
         </div>
         <div className="demoCrm">
           <h3 className="demoCrmTitle">Así llega el lead a tu CRM, en tiempo real</h3>
