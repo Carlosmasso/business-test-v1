@@ -1,10 +1,24 @@
 # Kairo — Automatización con IA para clínicas y centros de salud/estética
 
-Landing page de demostración para un negocio de servicios de IA orientado a empresas
-(agentes/chatbots, integración de sistemas, CRM a medida, optimización de procesos).
+Sitio de un negocio de servicios de IA orientado a empresas, enfocado en un único
+producto: un agente de WhatsApp que atiende pacientes 24/7 para clínicas y
+centros de salud/estética.
 
-Este documento resume el razonamiento estratégico detrás del sitio. El sitio en sí
-está en `index.html` (abrir directamente en el navegador, sin build ni dependencias).
+Construido con **Next.js 16 (App Router) + TypeScript + React 19**, sin librería
+de UI externa (CSS propio en `src/app/globals.css`).
+
+## Cómo ejecutarlo
+
+```bash
+npm install
+npm run dev       # http://localhost:3000
+npm run build     # build de producción
+npm run start     # sirve el build de producción
+npm run lint
+```
+
+Se despliega directamente en **Vercel** (conectar el repo, sin configuración
+adicional) o en cualquier plataforma que soporte Next.js.
 
 ## Por qué este nicho y no "empresas" en general
 
@@ -15,61 +29,78 @@ es para él, y compites contra consultoras genéricas de IA mucho más grandes.
 Se eligió **clínicas y centros de salud/estética** (dental, fisioterapia, medicina
 estética, centros de fisio/nutrición) como vertical de entrada porque:
 
-- **Dolor visible y constante**: WhatsApp/teléfono saturado, citas perdidas fuera de
-  horario, no-shows, tareas repetitivas de recepción.
+- **Dolor visible y constante**: WhatsApp/teléfono saturado, citas perdidas fuera
+  de horario, no-shows, tareas repetitivas de recepción.
 - **Decisor único**: normalmente el dueño o gerente decide sin comité de compras,
   lo que acorta el ciclo de venta.
-- **Demo muy tangible**: un chatbot que agenda una cita se explica y se muestra en
-  cinco minutos, a diferencia de un proyecto de "optimización de procesos" abstracto.
+- **Demo muy tangible**: un chatbot que agenda una cita se explica y se muestra
+  en cinco minutos, a diferencia de un proyecto de "optimización de procesos"
+  abstracto.
 - **Ticket y recurrencia razonables**: son negocios con caja para pagar una cuota
   mensual, y el servicio es fácilmente repetible de una clínica a otra (mismo
-  playbook, mismas integraciones típicas: WhatsApp, Google Calendar, CRMs de salud).
+  playbook, mismas integraciones típicas: WhatsApp, Google Calendar, CRMs de
+  salud).
 
-## Cómo se empaquetan los 4 servicios originales
+## Por qué un solo producto, no un catálogo
 
-En vez de vender los cuatro servicios como un catálogo plano, se ordenan como
-**escalera de venta**:
+La primera versión del sitio ofrecía 3 servicios en escalera (agente → CRM →
+integración de procesos) con 3 planes de precio. Para la fase de validación eso
+es ruido: nadie sabe si te contrata para "un chatbot" o para "optimizar
+procesos". El sitio ahora vende **una sola cosa**: el agente de WhatsApp para
+gestionar citas, con un único precio. La sincronización con CRM y la
+integración de sistemas se convierten en upsell natural más adelante, una vez
+haya 3-5 clientes reales y esté claro qué piden de verdad.
 
-1. **Agente de Atención 24/7** (el gancho/wedge) — chatbot en WhatsApp/web que
-   responde FAQs, agenda y confirma citas, envía recordatorios. Es lo que se
-   demuestra primero porque es lo más fácil de "ver funcionando".
-2. **Leads a CRM sin fricción** (upsell natural) — una vez que confían en el
-   agente, se conecta con su CRM/agenda para que cada conversación se convierta
-   en un registro sin trabajo manual.
-3. **Integración de sistemas y CRM a medida** (fase 2, cliente ya caliente) —
-   para clínicas con varias herramientas (facturación, historial clínico, etc.)
-   que necesitan que todo hable entre sí.
-4. **Optimización de procesos** — no se vende como servicio suelto; es la
-   metodología que envuelve a los otros tres (se mapea el proceso actual antes
-   de automatizar nada).
+## Por qué Next.js y no HTML/CSS/JS plano
 
-## Qué contiene el sitio (`index.html`)
+La primera versión era HTML/CSS/JS estático sin build, suficiente para una
+landing de una sola página. Se migró a Next.js pensando en escalar sin tener
+que reescribir nada: si más adelante hace falta un **dashboard de cliente**
+(ver sus leads en vivo), lógica de servidor real para el agente/CRM, o varias
+páginas/verticales, Next.js ya trae App Router, rutas de API y despliegue
+trivial en Vercel — sin necesidad de migrar de stack en ese momento.
+
+## Estructura
+
+```
+src/app/page.tsx          página principal (contenido estático de cada sección)
+src/app/layout.tsx         layout raíz, metadata, fuente (next/font)
+src/app/globals.css        design tokens + estilos de toda la web
+src/components/DemoSection.tsx   contenedor con estado compartido chat ↔ CRM
+src/components/ChatDemo.tsx      widget de chat con árbol de conversación guionizado
+src/components/ContactForm.tsx   formulario conectado a FormSubmit (envío por email)
+```
+
+## Qué contiene el sitio
 
 - Hero con propuesta de valor y llamada a la acción.
-- Sección de dolor/problema (sin estadísticas inventadas presentadas como dato
-  real — se describe el problema cualitativamente).
-- 3 paquetes de servicio siguiendo la escalera anterior.
-- **Demo interactiva de chatbot**: widget de chat funcional (JS puro, sin backend)
-  que simula a un paciente agendando una cita en una clínica dental ficticia.
-- **Mock de CRM**: tablero tipo kanban que muestra cómo un lead entra por WhatsApp
-  y termina como cita confirmada, sin trabajo manual.
-- Proceso de trabajo en 4 pasos (diagnóstico → configuración → integración → medición).
-- Precios orientativos (marcados explícitamente como ejemplo, a ajustar con
+- Sección de dolor/problema (sin estadísticas inventadas presentadas como dato real).
+- Un único servicio: Agente de Atención 24/7.
+- **Demo interactiva de chatbot**: widget de chat funcional (sin backend) que
+  simula a un paciente agendando una cita en una clínica dental ficticia.
+- **Mock de CRM**: tablero tipo kanban que se sincroniza en vivo con la demo del
+  chat (el lead se mueve solo de "Nuevo lead" → "Atendido por IA" → "Cita
+  agendada").
+- Proceso de trabajo en 4 pasos.
+- Precio único, orientativo (marcado explícitamente como ejemplo, a ajustar con
   investigación de mercado real).
 - Caso de ejemplo **claramente etiquetado como ilustrativo/ficticio** — no es un
   testimonio real, para no inducir a error a nadie que visite el sitio.
-- Formulario de contacto (estático de momento, sin backend conectado).
+- Formulario de contacto conectado a **FormSubmit** (envía a cmassoweb@gmail.com
+  vía AJAX, sin backend propio). La primera vez que alguien lo envíe en
+  producción, FormSubmit manda un email de activación que hay que confirmar una
+  sola vez.
 
 ## Próximos pasos sugeridos
 
 1. Validar el nicho con 5-10 conversaciones reales con dueños de clínicas antes
-   de invertir más en el sitio.
+   de invertir más en el producto.
 2. Sustituir el caso "ilustrativo" por un caso real en cuanto exista un primer
    cliente (aunque sea gratis/beta a cambio de testimonio).
-3. Conectar el formulario de contacto a un email o CRM real (ej. Tally, un
-   backend propio, o un simple `mailto:` mejorado).
-4. Definir precios reales investigando lo que cobra la competencia local
-   (agencias de automatización, freelancers de IA) para ese tamaño de clínica.
+3. Conectar el agente de la demo a la **API de WhatsApp Business** (o Twilio)
+   con un LLM real detrás — no hace falta que sea self-service al principio,
+   se puede configurar a mano por cliente mientras se valida.
+4. Ajustar el precio con investigación de mercado real (competencia local:
+   agencias de automatización, freelancers de IA).
 5. Cuando el playbook esté probado en salud/estética, evaluar una segunda
-   vertical (inmobiliarias, despachos) reutilizando la misma estructura de
-   oferta y de sitio.
+   vertical (inmobiliarias, despachos) reutilizando la misma estructura.
