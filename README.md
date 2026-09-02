@@ -8,10 +8,10 @@ Construido con **Next.js 16 (App Router) + TypeScript + React 19**, sin librerí
 de UI externa (CSS propio en `src/app/globals.css`).
 
 Diseño deliberadamente editorial/minimalista en vez del típico "SaaS de
-producto": tipografía serif (Fraunces) para titulares + sans (Inter) para
-texto/UI, paleta casi monocroma (papel, tinta, un verde apagado como único
-acento), sin tarjetas con sombra ni pastillas de colores — las secciones se
-separan con líneas finas, no con bloques de color alternados. Los mockups de
+producto": una única tipografía (**JetBrains Mono**) para titulares y texto/UI,
+paleta casi monocroma (papel, tinta, un verde apagado como único acento), sin
+tarjetas con sombra ni pastillas de colores — las secciones se separan con
+líneas finas, no con bloques de color alternados. Los mockups de
 WhatsApp son la excepción: usan la paleta real de WhatsApp porque son
 contenido (una app real), no decoración de marca.
 
