@@ -96,6 +96,10 @@ src/components/WhatsAppMock.tsx   mockup visual de una conversación de WhatsApp
 src/components/DemoSection.tsx   contenedor con estado compartido chat ↔ CRM
 src/components/ChatDemo.tsx      widget de chat con árbol de conversación guionizado, con la misma estética de WhatsApp
 src/components/ContactForm.tsx   formulario conectado a FormSubmit (envío por email)
+src/app/prototipo/page.tsx       prototipo interno con calendario real (no enlazado en el menú)
+src/components/PrototypeChat.tsx  chat del prototipo: mismos botones, pero contra datos reales
+src/lib/googleCalendar.ts        disponibilidad y creación de eventos vía Google Calendar API
+src/app/api/availability, api/book   rutas que expone ese prototipo
 ```
 
 ## Qué contiene el sitio
@@ -123,6 +127,41 @@ src/components/ContactForm.tsx   formulario conectado a FormSubmit (envío por e
   vía AJAX, sin backend propio). La primera vez que alguien lo envíe en
   producción, FormSubmit manda un email de activación que hay que confirmar una
   sola vez.
+
+## Prototipo con calendario real (`/prototipo`)
+
+Página interna, no enlazada en el menú ni indexable (`robots: noindex`), para
+probar la parte de agenda de verdad — sin tocar la demo pública, que debe
+seguir siendo rápida y fiable siempre. Sigue sin permitir texto libre (todo
+por botones), pero en vez de horarios inventados:
+
+- Consulta la disponibilidad real de un Google Calendar (`GET /api/availability`).
+- Al confirmar un hueco, crea el evento de verdad en ese calendario (`POST /api/book`).
+
+**Cómo probarlo con tu propio calendario:**
+
+1. En [Google Cloud Console](https://console.cloud.google.com/), crea un proyecto
+   (o usa uno existente) y activa la **Google Calendar API**.
+2. Crea una **cuenta de servicio** (Service Account) en ese proyecto, y genera
+   una clave JSON para ella (botón "Add key" → JSON).
+3. Copia el `client_email` de esa cuenta de servicio (algo como
+   `xxx@tu-proyecto.iam.gserviceaccount.com`).
+4. En Google Calendar, comparte tu calendario con ese email — "Settings and
+   sharing" → "Share with specific people" → pégalo con permiso **"Make
+   changes to events"**.
+5. Copia estas 3 variables de entorno (ver `.env.example`) a un `.env.local`
+   local, o a Vercel (Project Settings → Environment Variables):
+   - `GOOGLE_SERVICE_ACCOUNT_EMAIL` — el `client_email` del JSON
+   - `GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY` — el `private_key` del JSON, tal
+     cual (con los `\n` literales)
+   - `GOOGLE_CALENDAR_ID` — tu email de Gmail, o el Calendar ID si es un
+     calendario secundario
+
+**Nunca subas esas credenciales al repositorio** — `.env.local` ya está en
+`.gitignore`; solo `.env.example` (sin valores reales) se versiona.
+
+Sin esas variables configuradas, `/prototipo` sigue funcionando pero avisa de
+que faltan credenciales en vez de fallar.
 
 ## Próximos pasos sugeridos
 
