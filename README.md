@@ -9,11 +9,14 @@ de UI externa (CSS propio en `src/app/globals.css`).
 
 Diseño deliberadamente editorial/minimalista en vez del típico "SaaS de
 producto": una única tipografía (**JetBrains Mono**) para titulares y texto/UI,
-paleta casi monocroma (papel, tinta, un verde apagado como único acento), sin
-tarjetas con sombra ni pastillas de colores — las secciones se separan con
-líneas finas, no con bloques de color alternados. Los mockups de
-WhatsApp son la excepción: usan la paleta real de WhatsApp porque son
-contenido (una app real), no decoración de marca.
+paleta casi monocroma (papel, tinta, un verde apagado como único acento). Las
+secciones de contenido se separan con líneas finas, no con tarjetas ni bloques
+de color alternados; los elementos interactivos (botones, el panel de la demo,
+las tarjetas del kanban, el mockup del hero) llevan un toque de **neomorfismo**
+— sombra clara/oscura sobre el mismo tono de fondo, para que parezcan
+extruidos del papel — como única fuente de dinamismo visual, sin añadir color.
+Los mockups de WhatsApp son la excepción a la paleta: usan los colores reales
+de WhatsApp porque son contenido (una app real), no decoración de marca.
 
 ## Cómo ejecutarlo
 

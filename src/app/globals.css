@@ -8,6 +8,11 @@
   --accent-soft: #e9efec;
   --radius: 6px;
   --shadow: 0 14px 34px rgba(20, 24, 28, 0.09);
+  --neu-dark: rgba(20, 24, 28, 0.12);
+  --neu-light: rgba(255, 255, 255, 0.85);
+  --neu-raised: 6px 6px 14px var(--neu-dark), -6px -6px 14px var(--neu-light);
+  --neu-raised-sm: 3px 3px 7px var(--neu-dark), -3px -3px 7px var(--neu-light);
+  --neu-inset: inset 3px 3px 7px var(--neu-dark), inset -3px -3px 7px var(--neu-light);
   --wa-dark: #075e54;
   --wa-green: #25d366;
   --wa-wallpaper: #e7ddd3;
@@ -107,8 +112,13 @@ a {
   font-weight: 500;
   font-size: 0.92rem;
   cursor: pointer;
-  border: 1px solid transparent;
-  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  border: none;
+  box-shadow: var(--neu-raised-sm);
+  transition: background 0.15s ease, color 0.15s ease, box-shadow 0.12s ease, transform 0.12s ease;
+}
+.btn:active {
+  box-shadow: var(--neu-inset);
+  transform: translateY(1px);
 }
 .btnSm {
   padding: 8px 16px;
@@ -124,14 +134,15 @@ a {
 .btnPrimary:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
 }
 .btnGhost {
-  background: transparent;
+  background: var(--paper);
   color: var(--ink);
-  border-color: var(--hairline);
 }
 .btnGhost:hover {
-  border-color: var(--ink);
+  color: var(--accent);
 }
 
 /* HERO */
@@ -340,10 +351,10 @@ a {
   padding-bottom: 2px;
 }
 .demoCrm {
-  background: var(--paper-raised);
-  border: 1px solid var(--hairline);
-  border-radius: var(--radius);
+  background: var(--paper);
+  border-radius: 16px;
   padding: 26px;
+  box-shadow: var(--neu-raised);
 }
 .demoCrmTitle {
   font-size: 0.98rem;
@@ -361,14 +372,14 @@ a {
 .kanban {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--hairline);
-  border: 1px solid var(--hairline);
+  gap: 14px;
 }
 .kanbanCol {
-  background: var(--paper-raised);
+  background: var(--paper);
+  border-radius: 10px;
   padding: 12px;
   min-height: 180px;
+  box-shadow: var(--neu-inset);
 }
 .kanbanCol h4 {
   font-size: 0.72rem;
@@ -385,9 +396,10 @@ a {
 }
 .kanbanCard {
   background: var(--paper);
-  border: 1px solid var(--hairline);
+  border-radius: 8px;
   padding: 10px 12px;
   font-size: 0.82rem;
+  box-shadow: var(--neu-raised-sm);
   animation: pop 0.35s ease;
 }
 .kanbanCard strong {
@@ -456,6 +468,12 @@ a {
 .priceCard {
   padding: 32px 40px 32px 0;
   border-right: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  transition: box-shadow 0.18s ease, transform 0.18s ease;
+}
+.priceCard:hover {
+  box-shadow: var(--neu-raised-sm);
+  transform: translateY(-3px);
 }
 .priceCard:last-child {
   padding-left: 40px;
@@ -662,7 +680,12 @@ a {
   border: none;
   font-size: 1.4rem;
   cursor: pointer;
-  box-shadow: 0 10px 24px rgba(37, 211, 102, 0.4);
+  box-shadow: 0 10px 24px rgba(37, 211, 102, 0.4), var(--neu-raised-sm);
+  transition: box-shadow 0.12s ease, transform 0.12s ease;
+}
+.chatToggle:active {
+  box-shadow: 0 6px 14px rgba(37, 211, 102, 0.4), var(--neu-inset);
+  transform: translateY(1px);
 }
 .chatPanel {
   position: absolute;
@@ -790,8 +813,7 @@ a {
   border-radius: 12px;
   overflow: hidden;
   background: #fff;
-  border: 1px solid var(--hairline);
-  box-shadow: var(--shadow);
+  box-shadow: var(--neu-raised);
 }
 .waHeader {
   background: var(--wa-dark);
