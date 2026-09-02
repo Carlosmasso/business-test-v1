@@ -20,6 +20,11 @@ npm run lint
 Se despliega directamente en **Vercel** (conectar el repo, sin configuración
 adicional) o en cualquier plataforma que soporte Next.js.
 
+En cuanto el sitio tenga dominio final (el `*.vercel.app` o uno propio), añade
+la variable de entorno `NEXT_PUBLIC_SITE_URL` en Vercel (Project Settings →
+Environment Variables) con ese dominio — se usa para el canonical, Open Graph,
+`robots.txt` y `sitemap.xml`. Sin ella cae en un placeholder de ejemplo.
+
 ## Por qué este nicho y no "empresas" en general
 
 Ofrecer "optimización de procesos + agentes + integración de sistemas + CRM" a
@@ -64,8 +69,13 @@ trivial en Vercel — sin necesidad de migrar de stack en ese momento.
 
 ```
 src/app/page.tsx          página principal (contenido estático de cada sección)
-src/app/layout.tsx         layout raíz, metadata, fuente (next/font)
+src/app/layout.tsx         layout raíz, metadata (SEO, Open Graph, Twitter card), fuente (next/font)
 src/app/globals.css        design tokens + estilos de toda la web
+src/app/site-config.ts     dominio del sitio (NEXT_PUBLIC_SITE_URL), usado por metadata/robots/sitemap
+src/app/icon.tsx            favicon generado por código (marca "K.")
+src/app/apple-icon.tsx       icono para pantalla de inicio de iOS
+src/app/opengraph-image.tsx  imagen de la tarjeta al compartir el enlace (WhatsApp, email, redes)
+src/app/robots.ts / sitemap.ts   SEO básico
 src/components/DemoSection.tsx   contenedor con estado compartido chat ↔ CRM
 src/components/ChatDemo.tsx      widget de chat con árbol de conversación guionizado
 src/components/ContactForm.tsx   formulario conectado a FormSubmit (envío por email)

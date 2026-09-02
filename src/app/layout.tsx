@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { SITE_URL } from "./site-config";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -8,10 +9,28 @@ const inter = Inter({
   weight: ["400", "500", "600", "700", "800"],
 });
 
+const title = "Kairo — Automatización con IA para clínicas";
+const description =
+  "Agente de IA que atiende WhatsApp 24/7, agenda citas y evita ausencias — para clínicas dentales, fisioterapia y centros de estética.";
+
 export const metadata: Metadata = {
-  title: "Kairo — Automatización con IA para clínicas",
-  description:
-    "Agente de IA que atiende WhatsApp 24/7, agenda citas y evita ausencias — para clínicas dentales, fisioterapia y centros de estética.",
+  metadataBase: new URL(SITE_URL),
+  title,
+  description,
+  alternates: { canonical: "/" },
+  openGraph: {
+    title,
+    description,
+    url: SITE_URL,
+    siteName: "Kairo",
+    locale: "es_ES",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
